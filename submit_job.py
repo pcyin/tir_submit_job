@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("job_scripts", nargs='+', help='a list of job scripts to execute')
 parser.add_argument("--job_name", help='job name', type=str, required=True)
 parser.add_argument("--mem_per_job", help='amount of memory allocated per job', type=int, default=10000)
-parser.add_argument('--cpus_per_jobs', help='num. cpus per job', type=int, default=1)
+parser.add_argument('--cpus_per_job', help='num. cpus per job', type=int, default=1)
 parser.add_argument('--output', default='output.out', type=str)
 
 args = parser.parse_args()
@@ -34,7 +34,7 @@ for job in jobs: job.wait()
 job = sbatch('--gres', 'gpu:1',
              '--job-name', args.job_name,
              '--mem', args.mem_per_job * job_num,  # memory
-             '--cpus-per-task', args.cpus_per_jobs * job_num,  # number of cpus
+             '--cpus-per-task', args.cpus_per_job * job_num,  # number of cpus
              '--time', 0,  # wait time: unlimited
              '--output', args.output,  # assume you don't need stdout
              _in=slurm_script)
